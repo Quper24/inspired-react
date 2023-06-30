@@ -3,10 +3,7 @@ import s from './ColorList.module.scss';
 import { Color } from './Color/Color.jsx';
 
 export const ColorList = ({ colors }) => {
-  console.log('colors: ', colors);
   const { colorList } = useSelector(state => state.color);
-  console.log('colorList: ', colorList);
-
 
   return (
     <ul className={s.colorList}>
