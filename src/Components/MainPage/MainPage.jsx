@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchCategory, fetchGender } from "../../features/goodsSlice.js";
 import { setActiveGender } from "../../features/navigationSlice.js";
-import { Goods } from "../../Goods/Goods.jsx";
+import { Goods } from "../Goods/Goods.jsx";
 import { Banner } from "../Banner/Banner.jsx";
 
 export const MainPage = () => {
