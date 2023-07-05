@@ -13,7 +13,7 @@ export const Banner = ({ data }) => {
 
   useEffect(() => {
     if (isMobile) {
-      setBgURL(`${API_URL}${data?.bg.mob}`);
+      setBgURL(`${API_URL}${data?.bg.mobile}`);
     } else if (isTablet) {
       setBgURL(`${API_URL}${data?.bg.tablet}`);
     } else if (isLaptop) {
