@@ -78,6 +78,11 @@
     gap: 6px;
     padding-bottom: 14px;
   }
+
+  .error {
+    right: auto;
+    left: 0;
+  }
 }
 
 .radio {
@@ -176,7 +181,7 @@
 
 .error {
   position: absolute;
-  left: 0;
+  right: 0;
   bottom: 0;
   display: inline-block;
   font-size: 14px;

@@ -10,7 +10,6 @@ export const CartPage = () => {
   const [count, setCount] = useState(0)
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(count, countItems);
     if(count !== countItems) {
       dispatch(fetchAll({list: cartItems.map(item => item.id)}));
       setCount(countItems);
@@ -21,7 +20,7 @@ export const CartPage = () => {
   return (
     <>
       <Cart cartItems={cartItems} goodsList={goodsList}/>
-      <Order cartItems={cartItems} goodsList={goodsList}/>
+      <Order cartItems={cartItems} />
     </>
   )
 }
