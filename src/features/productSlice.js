@@ -20,6 +20,7 @@ const productSlice = createSlice({
     builder
       .addCase(fetchProduct.pending, (state) => {
         state.status = "loading";
+        state.product = {};
       })
       .addCase(fetchProduct.fulfilled, (state, action) => {
         state.status = "success";
@@ -27,6 +28,7 @@ const productSlice = createSlice({
       })
       .addCase(fetchProduct.rejected, (state, action) => {
         state.status = "failed";
+        state.product = {};
         state.error = action.error.message;
       });
   },

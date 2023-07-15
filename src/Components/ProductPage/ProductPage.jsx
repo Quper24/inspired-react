@@ -13,7 +13,7 @@ import { Goods } from "../Goods/Goods.jsx";
 import { fetchCategory } from "../../features/goodsSlice.js";
 import { BtnLike } from "../BtnLike/BtnLike.jsx";
 import { addToCart } from "../../features/cartSlice.js";
-import { Img } from '../Img/Img.jsx';
+import { Img } from "../Img/Img.jsx";
 
 export const ProductPage = () => {
   const dispatch = useDispatch();
@@ -57,7 +57,7 @@ export const ProductPage = () => {
 
   useEffect(() => {
     if (colorList?.length && colors?.length) {
-      setSelectedColor(colorList.find(color => color.id === colors[0]).title)
+      setSelectedColor(colorList.find((color) => color.id === colors[0]).title);
     }
   }, [colorList, colors]);
 
