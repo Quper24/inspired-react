@@ -3,11 +3,12 @@ import { API_URL } from "../../const.js";
 import s from "./Product.module.scss";
 import { ColorList } from "../ColorList/ColorList.jsx";
 import { BtnLike } from '../BtnLike/BtnLike.jsx';
+import { Img } from '../Img/Img.jsx';
 
 export const Product = ({ id, pic, title, price, colors, description }) => (
   <article className={s.product}>
     <NavLink to={`/product/${id}`} className={s.link}>
-      <img
+      <Img
         className={s.image}
         src={`${API_URL}${pic}`}
         alt={`${title} ${description}`}
