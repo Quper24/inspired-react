@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
-import { Container } from "../Layout/Container/Container.jsx";
+import { Container } from "../../Layout/Container/Container.jsx";
 import s from "./ProductPage.module.scss";
 import cn from "classnames";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProduct } from "../../features/productSlice.js";
+import { fetchProduct } from "../../../features/productSlice.js";
 import { useParams } from "react-router-dom";
-import { API_URL } from "../../const.js";
-import { ColorList } from "../ColorList/ColorList.jsx";
-import { Count } from "../Count/Count.jsx";
+import { API_URL } from "../../../const.js";
+import { ColorList } from "../../ColorList/ColorList.jsx";
+import { Count } from "../../Count/Count.jsx";
 import { ProductSize } from "./ProductSize/ProductSize.jsx";
-import { Goods } from "../Goods/Goods.jsx";
-import { fetchCategory } from "../../features/goodsSlice.js";
-import { BtnLike } from "../BtnLike/BtnLike.jsx";
-import { Img } from "../Img/Img.jsx";
+import { Goods } from "../../Goods/Goods.jsx";
+import { fetchCategory } from "../../../features/goodsSlice.js";
+import { BtnLike } from "../../BtnLike/BtnLike.jsx";
+import { Img } from "../../Img/Img.jsx";
 import { ErrorMessage, Form, Formik } from "formik";
 import * as Yup from "yup";
-import { addToCart } from "../../features/cartSlice.js";
+import { addToCart } from "../../../features/cartSlice.js";
 
 export const ProductPage = () => {
   const dispatch = useDispatch();

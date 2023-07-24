@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import s from "./OrderModal.module.scss";
-import { API_URL } from "../../../const.js";
-import { clearCart } from "../../../features/cartSlice.js";
+import { API_URL } from "../../../../const.js";
+import { clearCart } from "../../../../features/cartSlice.js";
 
 export const OrderModal = () => {
   const {
@@ -16,7 +16,7 @@ export const OrderModal = () => {
 
   const handleModalClick = (ev) => {
     ev.stopPropagation();
-  }
+  };
 
   return (
     <div className={s.modal} onClick={handleCloseModal}>
@@ -50,7 +50,7 @@ export const OrderModal = () => {
           <li className={s.customerItem}>
             <span className={s.customerTitle}>Способ получения</span>
             <span className={s.customerData}>
-              {values.delivery === 'delivery' ? 'Доставка' : 'Самовывоз'}
+              {values.delivery === "delivery" ? "Доставка" : "Самовывоз"}
             </span>
           </li>
         </ul>
@@ -61,8 +61,7 @@ export const OrderModal = () => {
             return (
               <li
                 className={s.goodsItem}
-                key={`${item.id}${item.color}${item.size}`}
-              >
+                key={`${item.id}${item.color}${item.size}`}>
                 <img
                   className={s.goodsImg}
                   src={`${API_URL}${product.pic}`}

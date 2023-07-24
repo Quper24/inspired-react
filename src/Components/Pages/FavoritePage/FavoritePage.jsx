@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Goods } from "../Goods/Goods.jsx";
+import { Goods } from "../../Goods/Goods.jsx";
 import { useEffect } from "react";
-import { fetchCategory } from "../../features/goodsSlice.js";
-import { usePageFromSearchParams } from "../../hooks/usePageFromSearchParams.js";
+import { fetchCategory } from "../../../features/goodsSlice.js";
+import { usePageFromSearchParams } from "../../../hooks/usePageFromSearchParams.js";
 import { useNavigate } from "react-router-dom";
 
 export const FavoritePage = () => {
