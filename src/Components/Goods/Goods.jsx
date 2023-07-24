@@ -4,7 +4,7 @@ import { Container } from "../Layout/Container/Container.jsx";
 import { Product } from "../Product/Product.jsx";
 import { Pagination } from "../Pagintaion/Pagintion.jsx";
 import { Preloader } from "../Preloader/Preloader.jsx";
-export const Goods = ({ title }) => {
+export const Goods = ({ title, noCount = false }) => {
   const { goodsList, totalCount, status } = useSelector((state) => state.goods);
 
   return (
@@ -12,7 +12,11 @@ export const Goods = ({ title }) => {
       <Container>
         <h2 className={s.title}>
           {title ?? "Новинки"}
-          {totalCount && totalCount > 0 ? <sup>&nbsp;({totalCount})</sup> : ""}
+          {totalCount && totalCount > 0 && !noCount ? (
+            <sup>&nbsp;({totalCount})</sup>
+          ) : (
+            ""
+          )}
         </h2>
         {status === "loading" ? (
           <Preloader />

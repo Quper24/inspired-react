@@ -12,20 +12,24 @@ import { ProductSize } from "./ProductSize/ProductSize.jsx";
 import { Goods } from "../Goods/Goods.jsx";
 import { fetchCategory } from "../../features/goodsSlice.js";
 import { BtnLike } from "../BtnLike/BtnLike.jsx";
-import { addToCart } from "../../features/cartSlice.js";
 import { Img } from "../Img/Img.jsx";
+import { ErrorMessage, Form, Formik } from "formik";
+import * as Yup from "yup";
+import { addToCart } from "../../features/cartSlice.js";
 
 export const ProductPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { product } = useSelector((state) => state.product);
+  const { product, status: statusProduct } = useSelector(
+    (state) => state.product,
+  );
+  const { colorList, status: statusColor } = useSelector(
+    (state) => state.color,
+  );
 
   const { gender, category, colors } = product;
-  const { colorList } = useSelector((state) => state.color);
 
   const [count, setCount] = useState(1);
-  const [selectedColor, setSelectedColor] = useState("");
-  const [selectedSize, setSelectedSize] = useState("");
 
   const handleIncrement = () => {
     setCount((prevCount) => prevCount + 1);
@@ -37,101 +41,91 @@ export const ProductPage = () => {
     }
   };
 
-  const handleColorChange = (e) => {
-    setSelectedColor(e.target.value);
-  };
-
-  const handleSizeChange = (e) => {
-    setSelectedSize(e.target.value);
-  };
-
   useEffect(() => {
     dispatch(fetchProduct(id));
   }, [id, dispatch]);
 
   useEffect(() => {
-    dispatch(
-      fetchCategory({ gender, category, count: 4, top: true, exclude: id })
-    );
+    if ((gender, category)) {
+      dispatch(
+        fetchCategory({ gender, category, count: 4, top: true, exclude: id }),
+      );
+    }
   }, [gender, category, id, dispatch]);
 
-  useEffect(() => {
-    if (colorList?.length && colors?.length) {
-      setSelectedColor(colorList.find((color) => color.id === colors[0]).title);
-    }
-  }, [colorList, colors]);
+  const validationSchema = Yup.object({
+    size: Yup.string().required("Размер обязателен"),
+  });
 
   return (
-    <>
-      <section className={s.card}>
-        <Container className={s.container}>
-          <Img
-            className={s.image}
-            src={`${API_URL}${product.pic}`}
-            alt={`${product.title} ${product.description}`}
-          />
-          <form
-            className={s.content}
-            onSubmit={(e) => {
-              e.preventDefault();
-              dispatch(
-                addToCart({
-                  id,
-                  color: selectedColor,
-                  size: selectedSize,
-                  count,
-                })
-              );
-            }}
-          >
-            <h2 className={s.title}>{product.title}</h2>
-
-            <p className={s.price}>руб {product.price}</p>
-
-            <div className={s.vendorCode}>
-              <span className={s.subtitle}>Артикул</span>
-              <span className={s.id}>{product.id}</span>
-            </div>
-
-            <div className={s.color}>
-              <p className={cn(s.subtitle, s.colorTitle)}>Цвет</p>
-              <ColorList
-                colors={colors}
-                selectedColor={selectedColor}
-                handleColorChange={handleColorChange}
-              />
-            </div>
-
-            <ProductSize
-              size={product.size}
-              selectedSize={selectedSize}
-              handleSizeChange={handleSizeChange}
+    [statusProduct, statusColor].every((status) => status === "success") && (
+      <>
+        <section className={s.card}>
+          <Container className={s.container}>
+            <Img
+              className={s.image}
+              src={`${API_URL}${product.pic}`}
+              alt={`${product.title} ${product.description}`}
             />
+            <Formik
+              initialValues={{
+                color: colorList.filter((item) => colors.includes(item.id))[0]
+                  .title,
+                size: "",
+                count: 1,
+              }}
+              validationSchema={validationSchema}
+              onSubmit={(values) => {
+                dispatch(
+                  addToCart({
+                    id,
+                    ...values,
+                  }),
+                );
+              }}>
+              <Form className={s.content}>
+                <h2 className={s.title}>{product.title}</h2>
 
-            <div className={s.description}>
-              <p className={cn(s.subtitle, s.descriptionTitle)}>Описание</p>
-              <p className={s.descriptionText}>{product.description}</p>
-            </div>
+                <p className={s.price}>руб {product.price}</p>
 
-            <div className={s.control}>
-              <Count
-                className={s.count}
-                count={count}
-                handleIncrement={handleIncrement}
-                handleDecrement={handleDecrement}
-              />
+                <div className={s.vendorCode}>
+                  <span className={s.subtitle}>Артикул</span>
+                  <span className={s.id}>{product.id}</span>
+                </div>
 
-              <button className={s.addCart} type="submit">
-                В корзину
-              </button>
+                <div className={s.color}>
+                  <p className={cn(s.subtitle, s.colorTitle)}>Цвет</p>
+                  <ColorList colors={colors} validate={true} />
+                </div>
 
-              <BtnLike id={id} />
-            </div>
-          </form>
-        </Container>
-      </section>
+                <ProductSize size={product.size} />
 
-      <Goods title="Вам также может понравиться" />
-    </>
+                <div className={s.description}>
+                  <p className={cn(s.subtitle, s.descriptionTitle)}>Описание</p>
+                  <p className={s.descriptionText}>{product.description}</p>
+                </div>
+
+                <div className={s.control}>
+                  <Count
+                    className={s.count}
+                    count={count}
+                    handleIncrement={handleIncrement}
+                    handleDecrement={handleDecrement}
+                  />
+
+                  <button className={s.addCart} type="submit">
+                    В корзину
+                  </button>
+                  <ErrorMessage className={s.error} name="size" component="p" />
+                  <BtnLike id={id} />
+                </div>
+              </Form>
+            </Formik>
+          </Container>
+        </section>
+
+        <Goods title="Вам также может понравиться" noCount={true} />
+      </>
+    )
   );
 };

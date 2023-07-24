@@ -1,22 +1,18 @@
-import s from './ProductSize.module.scss';
+import { Field } from "formik";
+import s from "./ProductSize.module.scss";
 
-export const ProductSize = ({size, selectedSize, handleSizeChange}) => (
+export const ProductSize = ({ size }) => (
   <div className={s.size}>
     <p className={s.title}>Размер</p>
     <div className={s.list}>
-      {size?.map(item => (
-        <label className={s.item} key={item}>
-          <input 
-            className={s.input}
-            type="radio"
-            name='size'
-            value={item}
-            checked={selectedSize === item}
-            onChange={handleSizeChange}
-          />
-          <span className={s.check}>{item}</span>
-        </label>
-      ))}
+      {size?.map((item) => {
+        return (
+          <label className={s.item} key={item}>
+            <Field className={s.input} type="radio" name="size" value={item} />
+            <span className={s.check}>{item}</span>
+          </label>
+        );
+      })}
     </div>
   </div>
-)
+);
