@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import s from "./CartItem.module.scss";
 import { API_URL } from "../../../../../const.js";
 import cn from "classnames";
-import { Count } from "../../../../Count/Count.jsx";
+import { Count } from "../../../../Common/Count/Count.jsx";
 import {
   addToCart,
   removeFromCart,

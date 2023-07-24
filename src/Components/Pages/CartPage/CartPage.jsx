@@ -4,7 +4,7 @@ import { Order } from "./Order/Order.jsx";
 import { useEffect, useState } from "react";
 import { fetchAll } from "../../../features/goodsSlice.js";
 import { OrderModal } from "./OrderModal/OrderModal.jsx";
-import { Preloader } from "../../Preloader/Preloader.jsx";
+import { Preloader } from "../../Common/Preloader/Preloader.jsx";
 
 export const CartPage = () => {
   const { cartItems, countItems } = useSelector((state) => state.cart);

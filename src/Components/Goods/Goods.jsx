@@ -2,8 +2,8 @@ import { useSelector } from "react-redux";
 import s from "./Goods.module.scss";
 import { Container } from "../Layout/Container/Container.jsx";
 import { Product } from "../Product/Product.jsx";
-import { Pagination } from "../Pagintaion/Pagintion.jsx";
-import { Preloader } from "../Preloader/Preloader.jsx";
+import { Pagination } from "../Common/Pagintaion/Pagintion.jsx";
+import { Preloader } from "../Common/Preloader/Preloader.jsx";
 export const Goods = ({ title, noCount = false }) => {
   const { goodsList, totalCount, status } = useSelector((state) => state.goods);
 
