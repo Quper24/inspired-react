@@ -1,13 +1,13 @@
-import { Container } from '../../Layout/Container/Container.jsx';
+import { Container } from "../../../Layout/Container/Container.jsx";
 import s from "./Cart.module.scss";
-import { CartItem } from './CartItem/CartItem.jsx';
+import { CartItem } from "./CartItem/CartItem.jsx";
 
 export const Cart = ({ cartItems, goodsList }) => {
   const totalPice = cartItems.reduce((sum, item) => {
-    const product = goodsList.find(product => product.id === item.id);
+    const product = goodsList.find((product) => product.id === item.id);
 
     if (product) {
-      return sum + (product.price * item.count)
+      return sum + product.price * item.count;
     } else {
       return sum;
     }
@@ -23,8 +23,7 @@ export const Cart = ({ cartItems, goodsList }) => {
             {cartItems.map((item) => (
               <li
                 key={`${item.id}-${item.color}-${item.size}`}
-                className={s.item}
-              >
+                className={s.item}>
                 <CartItem {...item} goodsList={goodsList} />
               </li>
             ))}

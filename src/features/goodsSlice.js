@@ -8,24 +8,21 @@ export const fetchGender = createAsyncThunk(
     url.searchParams.append("gender", gender);
     const response = await fetch(url);
     return await response.json();
-  }
+  },
 );
 
 export const fetchCategory = createAsyncThunk(
   "goods/fetchCategory",
-  async (param, { dispatch }) => {
+  async (param) => {
     const url = new URL(GOODS_URL);
     for (const key in param) {
       url.searchParams.append(key, param[key]);
     }
     const response = await fetch(url);
     const data = await response.json();
-    if (data.goods.length === 0 && data.page > 1 && data.totalCount) {
-      dispatch(fetchCategory({ ...param, page: data.page - 1 }));
-    }
 
     return data;
-  }
+  },
 );
 
 export const fetchAll = createAsyncThunk("goods/fetchAll", async (param) => {
@@ -59,6 +56,7 @@ const goodsSlice = createSlice({
       .addCase(fetchGender.pending, (state) => {
         state.status = "loading";
         state.totalCount = null;
+        state.goodsList = [];
       })
       .addCase(fetchGender.fulfilled, (state, action) => {
         state.status = "success";
@@ -74,6 +72,7 @@ const goodsSlice = createSlice({
       .addCase(fetchCategory.pending, (state) => {
         state.status = "loading";
         state.totalCount = null;
+        state.goodsList = [];
       })
       .addCase(fetchCategory.fulfilled, (state, action) => {
         state.status = "success";
@@ -85,10 +84,12 @@ const goodsSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
         state.totalCount = null;
+        state.goodsList = [];
       })
       .addCase(fetchAll.pending, (state) => {
         state.status = "loading";
         state.totalCount = null;
+        state.goodsList = [];
       })
       .addCase(fetchAll.fulfilled, (state, action) => {
         state.status = "success";
@@ -100,6 +101,7 @@ const goodsSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
         state.totalCount = null;
+        state.goodsList = [];
       });
   },
 });

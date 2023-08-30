@@ -4,17 +4,17 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import { MainPage } from './Components/MainPage/MainPage.jsx';
-import { Root } from './routes/Root.jsx';
-import { ErrorPage } from './Components/ErrorPage/ErrorPage.jsx';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { fetchNavigation } from './features/navigationSlice.js';
-import { fetchColors } from './features/colorSlice.js';
-import { ProductPage } from './Components/ProductPage/ProductPage.jsx';
-import { FavoritePage } from './Components/FavoritePage/FavoritePage.jsx';
-import { CartPage } from './Components/CartPage/CartPage.jsx';
-import { SearchPage } from './Components/SearchPage/SearchPage.jsx';
+import { MainPage } from "./Components/Pages/MainPage/MainPage.jsx";
+import { Root } from "./routes/Root.jsx";
+import { ErrorPage } from "./Components/Pages/ErrorPage/ErrorPage.jsx";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchNavigation } from "./features/navigationSlice.js";
+import { fetchColors } from "./features/colorSlice.js";
+import { ProductPage } from "./Components/Pages/ProductPage/ProductPage.jsx";
+import { FavoritePage } from "./Components/Pages/FavoritePage/FavoritePage.jsx";
+import { CartPage } from "./Components/Pages/CartPage/CartPage.jsx";
+import { SearchPage } from "./Components/Pages/SearchPage/SearchPage.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,8 +27,8 @@ const router = createBrowserRouter(
       <Route path="/catalog/:gender/:category?" element={<MainPage />} />
 
       <Route path="*" element={<ErrorPage />} />
-    </Route>
-  )
+    </Route>,
+  ),
 );
 
 export const App = () => {

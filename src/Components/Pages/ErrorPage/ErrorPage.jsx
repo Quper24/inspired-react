@@ -3,9 +3,9 @@ import s from "./ErrorPage.module.scss";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { fetchNavigation } from '../../features/navigationSlice.js';
-import { fetchColors } from '../../features/colorSlice.js';
-import { useRef } from 'react';
+import { fetchNavigation } from "../../../features/navigationSlice.js";
+import { fetchColors } from "../../../features/colorSlice.js";
+import { useRef } from "react";
 
 export const ErrorPage = () => {
   const routeError = useRouteError();
@@ -15,7 +15,7 @@ export const ErrorPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const timerIdRef = useRef(null)
+  const timerIdRef = useRef(null);
 
   useEffect(() => {
     if (status && location.pathname === "/404") {
@@ -28,15 +28,15 @@ export const ErrorPage = () => {
       clearInterval(timerIdRef.current);
 
       timerIdRef.current = setInterval(() => {
-        dispatch(fetchNavigation())
-        dispatch(fetchColors())
-      }, 3000)
+        dispatch(fetchNavigation());
+        dispatch(fetchColors());
+      }, 3000);
     }
 
     return () => {
       clearInterval(timerIdRef.current);
-    }
-  }, [dispatch, status, location])
+    };
+  }, [dispatch, status, location]);
 
   return (
     <div className={s.error}>
